@@ -1,6 +1,6 @@
 ﻿namespace DummyDB.Core
 {
-    static class CsvParser
+    public static class CsvParser
     {
         public static List<Row> ParseCsv(string input, TableScheme scheme)
         {

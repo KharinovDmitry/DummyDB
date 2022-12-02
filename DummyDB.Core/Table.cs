@@ -2,11 +2,9 @@
 {
     public class Table
     {
+        private TableScheme Scheme { get; set; }
         public string Name { get; private set; }
-
         public List<Row> Rows { get; private set; }
-
-        public TableScheme Scheme { get; private set; }
 
         public Table(TableScheme scheme)
         {

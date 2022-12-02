@@ -9,6 +9,10 @@ namespace DummyDB.Core
 {
     public static class FileReader
     {
+        public static string GetPathFromDBFile(string path)
+        {
+            return File.ReadAllText(path);
+        }
         public static List<Table> ParseTables(string path)
         {
             List<Table> tables = new List<Table>();
