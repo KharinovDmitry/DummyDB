@@ -49,6 +49,11 @@
             }
             throw new ArgumentException($"Неизвестный элемент таблицы");
         }
+
+        public List<Column> GetColumns()
+        {
+            return Scheme.Columns;
+        }
     }
 
     public class Row

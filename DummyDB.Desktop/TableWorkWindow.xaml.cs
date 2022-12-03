@@ -10,6 +10,8 @@ namespace DummyDB.Desktop
     public partial class TableWorkWindow : Window
     {
         private Table table;
+        private List<Column> columns;
+        private List<Element> rows;
 
         public TableWorkWindow(Table selectedTable)
         {
@@ -18,6 +20,8 @@ namespace DummyDB.Desktop
             Closing += Window_Closing;
 
             table = selectedTable;
+            columns = selectedTable.GetColumns();
+            rows = GetRows();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -31,31 +35,42 @@ namespace DummyDB.Desktop
             
         }
 
+        private List<Element> GetRows()
+        {
+            List<Element> resList = new List<Element>();
+            foreach (var item in table.Rows)
+            {
+                resList.Add(new Element());
+                resList[resList.Count - 1].Data = new List<object>();
+                foreach (var data in item.Data)
+                {
+                    resList[resList.Count - 1].Data.Add(data);
+                }
+            }
+            return resList;
+        }
+
         private void ShowTable()
         {
             DataGrid tableGrid = new DataGrid();
-            List<DataExample> testList = new List<DataExample>()
-            {
-                new DataExample("one", 1),
-                new DataExample("two", 2)
-            };
-            tableGrid.ItemsSource = testList;
+         
+            tableGrid.ItemsSource = rows;
             tableGrid.AutoGenerateColumns = false;
-            tableGrid.Columns.Add(new DataGridTextColumn() { Header = "Test Text", Binding = new Binding("DataText") });
-            tableGrid.Columns.Add(new DataGridTextColumn() { Header = "Test Int", Binding = new Binding("DataInt") });
+            for(int i = 0; i < columns.Count; i++)
+            {
+                tableGrid.Columns.Add(new DataGridTextColumn()
+                {
+                    Header = columns[i].Name,
+                    Binding = new Binding($"Data[{i}].Value")
+                });
+            }
+
             mainGrid.Children.Add(tableGrid);
         }
-
-        private class DataExample
+        
+        private class Element
         {
-            public string DataText { get; set; }
-            public int DataInt { get; set; }
-
-            public DataExample(string dataText, int dataInt)
-            {
-                DataText = dataText;
-                DataInt = dataInt;
-            }
+            public List<object> Data { get; set; }
         }
     }
 }
