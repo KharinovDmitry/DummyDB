@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DummyDB.Desktop"
         mc:Ignorable="d"
-        Title="Меню" Height="130px" Width="200px">
+        Title="" Height="130px" Width="200px">
     <Grid x:Name="mainGrid">
         <Button Name="SelectDB_Btn" Content="Выбрать БД" HorizontalAlignment="Left" Margin="20, 20,0,0" VerticalAlignment="Top" Click="SelectDBBtn_Click" Width="150px" Height="20px"/>
         <Button Name="CreateDB_Btn" Content="Создать новую БД" HorizontalAlignment="Left" Margin="20, 50,0,0" VerticalAlignment="Top" Click="CreateDBBtn_Click" Width="150px" Height="20px"/>

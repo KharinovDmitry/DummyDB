@@ -12,6 +12,7 @@ namespace DummyDB.Desktop
             InitializeComponent();
         }
 
+
         private void SelectDBBtn_Click(object sender, RoutedEventArgs e)
         {
             var dialog = new Microsoft.Win32.OpenFileDialog();

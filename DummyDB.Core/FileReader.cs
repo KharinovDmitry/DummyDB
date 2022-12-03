@@ -13,6 +13,7 @@ namespace DummyDB.Core
         {
             return File.ReadAllText(path);
         }
+
         public static List<Table> ParseTables(string path)
         {
             List<Table> tables = new List<Table>();
@@ -39,7 +40,6 @@ namespace DummyDB.Core
                     Table table = new Table(tableScheme);
                     table.ReadCsv(csvData);
                     tables.Add(table);
-
                 }
             }
             return tables;
