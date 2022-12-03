@@ -12,7 +12,9 @@ namespace DummyDB.Desktop
     {
         private Table table;
         private List<Column> columns;
-        private List<RowAdapter> elements;
+        private List<RowAdapter> rows;
+
+        private List<Column> addedColumns;
 
         public TableWorkWindow(Table selectedTable)
         {
@@ -22,6 +24,8 @@ namespace DummyDB.Desktop
 
             table = selectedTable;
             columns = selectedTable.GetColumns();
+
+            addedColumns = new List<Column>();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -30,7 +34,7 @@ namespace DummyDB.Desktop
             try
             {
                 table.ReadCsv();
-                elements = GetElements();
+                rows = GetElements();
             }
             catch(ArgumentException exep)
             {
@@ -48,8 +52,23 @@ namespace DummyDB.Desktop
         private void SaveBtn_Click(object sender, RoutedEventArgs e)
         {
             UpdateTable();
-            table.SaveCsv();
+            table.Save();
             MessageBox.Show("Данные сохраненны!");
+        }
+
+        private void AddColumnBtn_Click(object sender, RoutedEventArgs e)
+        {
+            addedColumns.Add(new Column()
+            {
+                Name = "Test",
+                Type = DataType.String,
+                ReferencedTable = null,
+                isPrimary = false
+            });
+            foreach (var item in rows)
+            {
+                item.Data.Add(new string(""));
+            }
         }
 
         private List<RowAdapter> GetElements()
@@ -72,7 +91,7 @@ namespace DummyDB.Desktop
             DataGrid tableGrid = new DataGrid();
             tableGrid.Margin = new Thickness(0, 50, 0, 0);
             
-            tableGrid.ItemsSource = elements;
+            tableGrid.ItemsSource = rows;
             tableGrid.AutoGenerateColumns = false;
             for(int i = 0; i < columns.Count; i++)
             {
@@ -88,10 +107,15 @@ namespace DummyDB.Desktop
 
         private void UpdateTable()
         {
+            foreach (var column in addedColumns)
+            {
+                table.AddColumn(column);
+            }
+
             table.Rows.Clear();
-            for (int i = 0; i < elements.Count; i++)
+            for (int i = 0; i < rows.Count; i++)
             {  
-                table.Rows.Add(AdapterToRow(elements[i]));
+                table.Rows.Add(AdapterToRow(rows[i]));
             }
         }
         

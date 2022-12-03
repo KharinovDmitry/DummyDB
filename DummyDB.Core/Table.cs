@@ -1,4 +1,6 @@
-﻿namespace DummyDB.Core
+﻿using Newtonsoft.Json;
+
+namespace DummyDB.Core
 {
     public class Table
     {
@@ -28,7 +30,6 @@
             }
             throw new ArgumentException($"Несуществующая таблица: {name}");
         }
-        
         
         public Row GetRow(int key)
         {
@@ -61,9 +62,16 @@
             Rows = CsvConverter.ParseCsv(csv, Scheme);
         }
 
-        public void SaveCsv()
+        public void AddColumn(Column column)
         {
+            Scheme.Columns.Add(column);
+        }
+
+        public void Save()
+        {
+            string jsonScheme = JsonConvert.SerializeObject(Scheme);
             File.WriteAllText(DataPath, CsvConverter.ConvertToCsv(this));
+            File.WriteAllText(SchemePath, jsonScheme);
         }
     }
 

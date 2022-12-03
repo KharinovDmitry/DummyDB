@@ -8,5 +8,7 @@
         Title="TableWorkWindow" Height="450" Width="800">
     <Grid Name="mainGrid">
         <Button Name="SaveBtn" Content="Сохранить" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Click="SaveBtn_Click"/>
+        <Button Name="AddColumn" Content="Добавить столбец" HorizontalAlignment="Left" Margin="90,10,0,0" VerticalAlignment="Top" Click="AddColumnBtn_Click"/>
+        <Button Name="AddRow" Content="Добавить строку" HorizontalAlignment="Left" Margin="210,10,0,0" VerticalAlignment="Top" Click="AddRowBtn_Click"/>
     </Grid>
 </Window>
