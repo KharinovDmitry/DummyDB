@@ -7,6 +7,6 @@
         mc:Ignorable="d"
         Title="TableWorkWindow" Height="450" Width="800">
     <Grid Name="mainGrid">
-        
+        <Button Name="SaveBtn" Content="Сохранить" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Click="SaveBtn_Click"/>
     </Grid>
 </Window>

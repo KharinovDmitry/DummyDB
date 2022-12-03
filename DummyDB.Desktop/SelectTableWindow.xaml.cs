@@ -44,7 +44,7 @@ namespace DummyDB.Desktop
             List<Table> resTables;
             try
             {
-                return FileReader.ParseTables(path);
+                return FileReader.ReadTables(path);
             }
             catch(ArgumentException e)
             {

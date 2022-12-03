@@ -1,6 +1,8 @@
-﻿namespace DummyDB.Core
+﻿using System.Text;
+
+namespace DummyDB.Core
 {
-    public static class CsvParser
+    public static class CsvConverter
     {
         public static List<Row> ParseCsv(string input, TableScheme scheme)
         {
@@ -43,6 +45,37 @@
             }
 
             return rowsResult;
+        }
+
+        public static string ConvertToCsv(Table table)
+        {
+            StringBuilder sb = new StringBuilder();
+            List<Column> columns = table.GetColumns();
+
+            for (int i = 0; i < columns.Count; i++)
+            {
+                sb.Append(columns[i].Name);
+                if(i != columns.Count - 1)
+                {
+                    sb.Append(";");
+                }
+            }
+            sb.Append("\n");
+
+            foreach(var row in table.Rows)
+            {
+                foreach (var item in row.Data)
+                {
+                    sb.Append(item.Value);
+                    if (item.Key != row.Data.Last().Key)
+                    {
+                        sb.Append(";");
+                    }
+                }
+                sb.Append("\n");
+            }
+            
+            return sb.ToString().Trim('\n');
         }
 
         private static bool isValid(string input, TableScheme scheme)
